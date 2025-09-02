@@ -1,0 +1,16 @@
+{
+  "name": "warhammer-rss",
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/netlify": "6.5.9",
+    "@astrojs/rss": "4.0.12",
+    "astro": "5.13.5"
+  }
+}
