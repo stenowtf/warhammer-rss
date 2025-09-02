@@ -86,7 +86,6 @@ export async function GET(context: { site: { origin: string } }) {
           content: fullContent || item.excerpt || "No content",
           categories: item.topics.map((topic) => topic.title) || [],
           source: { title, url: link },
-          stylesheet: `${context.site.origin}/public/styles.xsl`,
         };
       });
 
@@ -96,6 +95,7 @@ export async function GET(context: { site: { origin: string } }) {
         site: context.site as any,
         items: await Promise.all(items),
         customData: `<language>en-gb</language>`,
+        stylesheet: `${context.site.origin}/public/styles.xsl`,
       });
     }
 
