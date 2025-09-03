@@ -1,5 +1,4 @@
 import rss from "@astrojs/rss";
-import * as cheerio from "cheerio";
 
 type Image = {
   path: string;
@@ -65,25 +64,16 @@ export async function GET(context: { site: { origin: string } }) {
     if (data && data.news && data.news.length > 0) {
       const items = data.news.map(async (item) => {
         const title = item.title || "No title";
-        const linkUrl = item.uri ? `${baseUrl}/en-gb/${item.uri}` : undefined;
-        const link = linkUrl || `${baseUrl}/en-gb/all-news-and-features/`;
-
-        let fullContent = "";
-
-        if (linkUrl) {
-          const response = await fetch(linkUrl);
-          const html = await response.text();
-          const $ = cheerio.load(html);
-
-          fullContent = $(".article-content").text();
-        }
+        const link = item.uri
+          ? `${baseUrl}/en-gb/${item.uri}`
+          : `${baseUrl}/en-gb/all-news-and-features/`;
 
         return {
           title,
           description: item.excerpt || "No description",
           link,
           pubDate: new Date(item.date) || new Date("1970-01-01"),
-          content: fullContent || item.excerpt || "No content",
+          content: item.excerpt || "No content",
           categories: item.topics.map((topic) => topic.title) || [],
           source: { title, url: link },
         };
@@ -95,7 +85,7 @@ export async function GET(context: { site: { origin: string } }) {
         site: context.site as any,
         items: await Promise.all(items),
         customData: `<language>en-gb</language>`,
-        stylesheet: `${context.site.origin}/public/styles.xsl`,
+        stylesheet: `${context.site.origin}/styles.xsl`,
       });
     }
 
