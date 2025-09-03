@@ -63,7 +63,11 @@ export async function GET(context: { site: { origin: string } }) {
 
     if (data && data.news && data.news.length > 0) {
       const items = data.news.map(async (item) => {
-        const title = item.title || "No title";
+        const mainTitle = item.title || "No title";
+        const titleCategory = item.topics.length
+          ? item.topics.at(0)?.title
+          : "";
+        const title = `[${titleCategory}] ${mainTitle}`;
         const link = item.uri
           ? `${baseUrl}/en-gb/${item.uri}`
           : `${baseUrl}/en-gb/all-news-and-features/`;
@@ -76,6 +80,7 @@ export async function GET(context: { site: { origin: string } }) {
           content: item.excerpt || "No content",
           categories: item.topics.map((topic) => topic.title) || [],
           source: { title, url: link },
+          author: "Warhammer Community",
         };
       });
 
