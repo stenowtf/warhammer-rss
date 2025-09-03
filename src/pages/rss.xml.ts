@@ -70,13 +70,19 @@ export async function GET(context: { site: { origin: string } }) {
         const link = item.uri
           ? `${baseUrl}/en-gb/${item.uri}`
           : `${baseUrl}/en-gb/all-news-and-features/`;
+        const mainContent = item.excerpt || "No content";
+        const contentCategories =
+          item.topics.length > 0
+            ? `\n\n [${item.topics.map((topic) => topic.title).join(", ")}]`
+            : "";
+        const content = `${mainContent}${contentCategories}`;
 
         return {
           title,
-          description: `D: ${item.excerpt}` || "No description",
+          description: item.excerpt || "No description",
           link,
           pubDate: new Date(item.date) || new Date("1970-01-01"),
-          content: `C: ${item.excerpt}` || "No content",
+          content,
           categories: item.topics.map((topic) => topic.title) || [],
           source: { title, url: link },
           author: "Warhammer Community",
