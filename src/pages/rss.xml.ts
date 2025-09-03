@@ -73,7 +73,7 @@ export async function GET(context: { site: { origin: string } }) {
         const mainContent = item.excerpt || "No content";
         const contentCategories =
           item.topics.length > 0
-            ? `\n\n [${item.topics.map((topic) => topic.title).join(", ")}]`
+            ? ` [${item.topics.map((topic) => topic.title).join(", ")}]`
             : "";
         const content = `${mainContent}${contentCategories}`;
 
@@ -101,7 +101,6 @@ export async function GET(context: { site: { origin: string } }) {
 
     return new Response("No data found", { status: 404 });
   } catch (error) {
-    console.error("Error generating RSS feed:", error);
     return new Response("Error generating RSS feed", { status: 500 });
   }
 }
