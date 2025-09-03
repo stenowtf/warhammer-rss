@@ -73,10 +73,10 @@ export async function GET(context: { site: { origin: string } }) {
 
         return {
           title,
-          description: item.excerpt || "No description",
+          description: `D: ${item.excerpt}` || "No description",
           link,
           pubDate: new Date(item.date) || new Date("1970-01-01"),
-          content: item.excerpt || "No content",
+          content: `C: ${item.excerpt}` || "No content",
           categories: item.topics.map((topic) => topic.title) || [],
           source: { title, url: link },
           author: "Warhammer Community",
