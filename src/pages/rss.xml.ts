@@ -64,10 +64,9 @@ export async function GET(context: { site: { origin: string } }) {
     if (data && data.news && data.news.length > 0) {
       const items = data.news.map(async (item) => {
         const mainTitle = item.title || "No title";
-        const titleCategory = item.topics.length
-          ? item.topics.at(0)?.title
-          : "";
-        const title = `[${titleCategory}] ${mainTitle}`;
+        const titleCategory =
+          item.topics.length > 0 ? `[${item.topics.at(0)?.title}] ` : "";
+        const title = `${titleCategory}${mainTitle}`;
         const link = item.uri
           ? `${baseUrl}/en-gb/${item.uri}`
           : `${baseUrl}/en-gb/all-news-and-features/`;
