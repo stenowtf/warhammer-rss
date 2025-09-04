@@ -1,10 +1,25 @@
 ---
 import BaseLayout from "../layouts/base.astro";
+import "../styles/global.css";
 ---
 
 <BaseLayout>
   <main slot="body">
-    <h1>Welcome to <a href="/rss.xml">Warhammer RSS</a></h1>
-    <p>Your source for the latest Warhammer news and updates.</p>
+    <div class="bg-white h-screen px-6 py-24 sm:py-32 lg:px-8 dark:bg-gray-900">
+      <div class="mx-auto max-w-2xl text-center">
+        <h1
+          class="text-5xl font-semibold tracking-tight text-gray-900 sm:text-7xl dark:text-white"
+        >
+          Welcome to Warhammer RSS
+        </h1>
+        <p
+          class="mt-8 text-lg font-medium text-pretty text-gray-500 sm:text-xl/8 dark:text-gray-400"
+        >
+          Grab the feed <a class="underline hover:no-underline" href="/rss.xml"
+            >here</a
+          >.
+        </p>
+      </div>
+    </div>
   </main>
 </BaseLayout>
